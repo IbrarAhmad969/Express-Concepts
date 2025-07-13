@@ -19,6 +19,16 @@ const chirps = [
   },
 ];
 
+app.use((req, res, next)=>{
+
+    const start = Date.now()
+    next();
+    const endTime = Date.now();
+    const totalTime = endTime - start;
+    console.log(`The Method is ${req.method} - the URL is ${req.url} and total time spend in MS  is ${totalTime}`)
+
+})
+
 app.get("/chirps", (req, res) => {
   res.status(200).json(chirps);
 });
@@ -75,6 +85,7 @@ app.delete('/chirp/:id', (req, res)=>{
 
     })
 })
+
 
 app.listen(PORT, (req, res) => {
   console.log(`Server listening at PORT ${PORT}`);
