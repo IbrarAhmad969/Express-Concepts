@@ -1,6 +1,9 @@
 import friendsRouter from "./Routers/friends.router.js";
 import express from 'express'
 const app = express();
+import path from "path";
+const __dirname = path.resolve();
+
 const PORT = 3000;
 
 app.use(express.json());
@@ -14,6 +17,8 @@ app.use((req, res, next) => {
     console.log(`The Method is ${req.method} - the URL is ${req.baseUrl} and total time spend in MS  is ${totalTime}`)
 
 })
+
+app.use('/site', express.static(path.join(__dirname, 'public')))
 
 app.use('/friends', friendsRouter);
 
