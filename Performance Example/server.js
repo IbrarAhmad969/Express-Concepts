@@ -1,25 +1,24 @@
-const express = require("express")
+const express = require("express");
+const cluster = require('cluster');
 
 const app = express();
 
-function delay(duration){
-    const startTime = Date.now();
+app.get("/", (req, res) => {
+    res.send(`Performance Example ${process.pid}`);
+});
 
-    while(Date.now()-startTime<duration){
-        // event loop is completely blocked ... 
-    }
+app.get("/timer", (req, res) => {
+    // Non-blocking delay
+    setTimeout(() => {
+        res.send(`Ding Ding Ding ${process.pid}`);
+    }, 9000);
+});
+
+if (cluster.isPrimary) {
+    console.log(`Master started ${process.pid}`);
+    cluster.fork();
+    cluster.fork();
+} else {
+    console.log(`Worker started ${process.pid}`);
+    app.listen(3000);
 }
-
-app.get("/", (req, res)=>{
-    res.send(
-        "Performance Example "
-    );
-
-})
-app.get("/timer", (req, res)=>{
-    // delay the response 
-    delay(9000);
-    res.send('Ding Ding Ding');
-})
-
-app.listen(3000);
