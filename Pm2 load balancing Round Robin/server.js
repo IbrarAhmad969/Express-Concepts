@@ -6,10 +6,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/timer", (req, res) => {
-    // Non-blocking delay
+    // Non-blocking delay   
     setTimeout(() => {
-        res.send(`Ding Ding Ding ${process.pid}`);
-    }, 9000);
+        res.send(`Hi HI HI am Here!! ${process.pid}`);
+    }, 4000);
 });
 
 console.log(`Master started ${process.pid}`);
