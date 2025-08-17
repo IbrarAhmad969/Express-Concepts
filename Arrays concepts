@@ -1,0 +1,14 @@
+const arr = Array(5);
+// Undefine, and map can't iterate over it. 
+
+console.log(`First Array value ${arr}`);
+
+const arr2 = [...Array(5)];
+// Speread through the holes, now map can iterate. 
+
+console.log(`2nd Array with new format ${arr2.map((_, i)=> i)}`);
+
+const arr3 = Array(5).fill();
+// fill with a value, now can be iterateable. 
+
+console.log(`Using the Fill method ${arr3.map((_, i)=> i)}`)
